@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebP 内存分析</title>
+</head>
+<body>
+  <h1>上传 WebP 图片</h1>
+  <form id="upload-form" enctype="multipart/form-data">
+    <input type="file" name="image" accept=".webp" required />
+    <button type="submit">解析</button>
+  </form>
+  <pre id="result"></pre>
+
+  <script>
+    document.getElementById("upload-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const response = await fetch("/analyze", {
+        method: "POST",
+        body: formData,
+      });
+
+      const resultText = await response.text();
+      document.getElementById("result").textContent = resultText;
+    });
+  </script>
+</body>
+</html>
