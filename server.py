@@ -3,6 +3,8 @@ from PIL import Image
 
 app = Flask(__name__)
 
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 限制最大上传为100MB
+
 def calculate_webp_memory_size(file_stream):
     with Image.open(file_stream) as img:
         mode = img.mode
